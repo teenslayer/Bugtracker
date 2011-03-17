@@ -1,0 +1,54 @@
+<p>
+  <b>Project:</b>
+  <%= link_to(h(@defect.project_id), project_path(@defect.project_id)) %>
+</p>
+
+<p>
+  <b>Summary:</b>
+  <%=h @defect.summary %>
+</p>
+
+<p>
+  <b>Details:</b>
+  <%=h @defect.details %>
+</p>
+
+<p>
+  <b>Created at:</b>
+  <%=h @defect.created_at.strftime("%m/%d/%Y, %I:%M %p") %>
+</p>
+
+<p>
+  <b>Reporter:</b>
+  <%=h @defect.reporter_id %>
+  <%=h User.find(@defect.resolver_id).name%>
+</p>
+
+<p>
+  <b>Resolver:</b>
+  <%=h @defect.resolver_id %>
+</p>
+
+<p>
+  <b>Resolved at:</b>
+  <%=h @defect.resolved_at.strftime("%m/%d/%Y, %I:%M %p") %>
+</p>
+
+<p>
+  <b>Source:</b>
+   <%= link_to(h(@defect.source_id), source_path(@defect.source_id)) %>
+</p>
+
+<p>
+  <b>Severity:</b>
+  <%=h @defect.severity %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%=h @defect.status %>
+</p>
+
+
+<%= link_to 'Edit', edit_defect_path(@defect) %> |
+<%= link_to 'Back', defects_path %>

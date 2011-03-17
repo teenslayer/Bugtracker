@@ -1,0 +1,42 @@
+<h1> Listing Projects</h1>
+
+<% if logged_in? -%>
+<%= link_to( image_tag("icons/add.gif", :border => 0) , new_project_path) %>Add New Project
+<br>		
+<h2>All Projects</h2>					
+<% else -%>
+<% end -%>
+<!-- Listing All -->
+
+<table class="datagrid">
+  <thead class="datagrid"><p class="supertiny">
+	<th width="300" align="center">Name</th>
+	<th width="220" align="center">Start Date</th>
+	<th width="200" align="center">End Date</th>
+	<% if logged_in? -%>
+		<th width="300">&nbsp;</th>
+	<%else%>
+	<%end%>
+	</p>
+  </thead>
+
+<% @projects.each do |project| %>
+   <tr class="<%= cycle('dg_list_line_odd', 'dg_list_line_even') %>">
+    <td align="center"><%= link_to(h(project.name), project_path(project.id))%></td>
+    <td align="center"><%=h project.start_date.strftime("%m/%d/%Y, %I:%M %p") %></td>
+	<td align="center"><%=h project.end_date.strftime("%m/%d/%Y, %I:%M %p") %></td>
+    <% if logged_in? -%>
+	<td align="center">
+    	<%= link_to(image_tag("icons/edit_dg.gif", :border => 0), edit_project_path(project)) %>&nbsp;
+    	<%= link_to(image_tag("icons/close.gif", :border => 0), project, :confirm => 'Are you sure?', :method => :delete) %>
+	</td>
+	<%else%>
+	<%end%>
+  </tr>
+<% end %>
+</table>
+<%= will_paginate @projects %>
+<br />
+
+
+

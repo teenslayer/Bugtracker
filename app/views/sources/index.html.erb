@@ -1,0 +1,36 @@
+<h1>Listing sources</h1>
+<% if logged_in? -%>
+<%= link_to( image_tag("icons/add.gif", :border => 0) , new_source_path) %>Add New Source
+<br>		
+<h2>All Sources</h2>					
+<% else -%>
+<% end -%>
+<!-- Listing All -->
+
+<table class="datagrid">
+  <thead class="datagrid"><p class="supertiny">
+    <th width="50" align="center">Source ID</th>
+	<th width="300" align="center">Name</th>
+	<% if logged_in? -%>
+		<th width="300">&nbsp;</th>
+	<%else%>
+	<%end%>
+	</p>
+  </thead>
+
+<% @sources.each do |source| %>
+   <tr class="<%= cycle('dg_list_line_odd', 'dg_list_line_even') %>">
+    <td align="center"><%= link_to(h(source.id), source_path(source.id)) %></td>
+    <td align="center"><%= link_to(h(source.name), source_path(source.id))%></td>
+    <% if logged_in? -%>
+	<td align="center">
+    	<%= link_to(image_tag("icons/edit_dg.gif", :border => 0), edit_source_path(source)) %>&nbsp;
+    	<%= link_to(image_tag("icons/close.gif", :border => 0), source, :confirm => 'Are you sure?', :method => :delete) %>
+	</td>
+	<%else%>
+	<%end%>
+  </tr>
+<% end %>
+</table>
+<%= will_paginate @sources %>
+<br />

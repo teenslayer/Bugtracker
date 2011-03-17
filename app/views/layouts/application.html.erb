@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<title>BugTracker :: <%= controller.controller_name.capitalize %></title>
+		<%= stylesheet_link_tag 'layout', 'datagrid', 'formtastic', 'formtastic-changes' %>
+		<%= javascript_include_tag :defaults %>
+	</head>
+	<body>
+		<div id="header">
+			<div id="headergraphic">
+				<div id="headerlogo">BUGTRACKER</div>
+				<div id="sign_in_wrapper">
+					<table id="sign_in">
+						<tr>
+							<td id="sign_in_left"></td>
+							<td id="sign_in_middle">
+								<% if logged_in? -%>
+								Logged in as <%= link_to_current_user :content_method => :username %> | 
+								<%= link_to "Log out", logout_path, { :title => "Log out" } %>
+							    <% else -%>
+									<% form_tag session_path do -%>
+							        <%= label_tag 'Username' %>&nbsp; 
+							        <%= text_field_tag 'username', @username, :size => 7 %>&nbsp;&nbsp;&nbsp;
+							        <%= label_tag 'password' %>&nbsp;
+							        <%= password_field_tag 'password', nil, :size => 7 %>
+									<%= submit_tag 'Log in', :id => 'login_button' %>
+							        <%= link_to 'Register', signup_path %>
+									<% end -%>
+								<% end -%>
+							</td>
+							<td id="sign_in_right"></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div id="topnav">
+			<table>
+				<tr>
+					<td><%= link_to 'PROJECTS', projects_path %> /</td>
+					<td><%= link_to 'DEFECTS', defects_path %> /</td>
+					<td><%= link_to 'NOTES', notes_path %> /</td>
+					<td><%= link_to 'SOURCES', sources_path %> /</td>
+					<td><%= link_to 'ASSIGNMENTS', assignments_path %></td>
+				</tr>
+			</table>
+		</div>
+		<div id="body">
+			<p style="color: #FF030D" id="notice"><%= flash[:notice] %></p>
+			<%= yield %>
+		</div>
+	</body>
+		<%= render :partial => 'partials/footer' %>
+</html>

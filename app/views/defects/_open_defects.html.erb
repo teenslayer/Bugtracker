@@ -1,0 +1,30 @@
+<!-- Listing Open -->
+<h2>Open Defects</h2>
+<table class="datagrid">
+  <thead class="datagrid"><p class="supertiny">
+    <th width="50" align="center">Project ID</th>
+	<th width="300" align="center">Summary</th>
+	<th width="220" align="center">Created At</th>
+	<th width="200" align="center">Resolved At</th>
+	<th width="220" align="center">Severity</th>
+	<th width="220" align="center">Status</th>
+	<th width="300">&nbsp;</th>
+	</p>
+  </thead>
+
+<% @defects_open.each do |defect| %>
+   <tr class="<%= cycle('dg_list_line_odd', 'dg_list_line_even') %>">
+    <td align="center"><%= link_to(h(defect.project_id), project_path(defect.project_id)) %></td>
+    <td align="center"><%= link_to(h(defect.summary), defect_path(defect.id))%></td>
+    <td align="center"><%=h defect.created_at.strftime("%m/%d/%Y, %I:%M %p") %></td>
+    <td align="center"><% if defect.resolved_at.nil? %> <% else %><%=h defect.resolved_at.strftime("%m/%d/%Y, %I:%M %p") %><% end %></td>
+    <td align="center"><%=h defect.severity %></td>
+    <td align="center"><%=h defect.status %></td>
+    <td align="center">
+    	<%= link_to(image_tag("icons/edit_dg.gif", :border => 0), edit_defect_path(defect)) %>&nbsp;
+    	<%= link_to(image_tag("icons/close.gif", :border => 0), defect, :confirm => 'Are you sure?', :method => :delete) %>
+	</td>
+  </tr>
+<% end %>
+</table>
+<%= will_paginate @defects_open %>
